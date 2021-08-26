@@ -1,9 +1,0 @@
-FROM alpine:3.13
-
-RUN apk add --no-cache npm git
-
-RUN cd /opt \
- && git clone https://github.com/g2gml/pg.git \
- && cd pg && npm install && npm link
-
-WORKDIR /work
