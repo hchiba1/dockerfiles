@@ -1,0 +1,14 @@
+FROM ubuntu:20.04
+
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends wget unzip default-jre-headless \
+    && rm -rf /var/lib/apt/lists/*
+
+ENV JENA_VERSION 3.17.0
+RUN cd /opt \
+ && wget http://archive.apache.org/dist/jena/binaries/apache-jena-${JENA_VERSION}.zip \
+ && unzip apache-jena-${JENA_VERSION}.zip && rm apache-jena-${JENA_VERSION}.zip
+ENV PATH $PATH:/opt/apache-jena-3.17.0/bin
+
+WORKDIR /work
+
+ENTRYPOINT ["sparql"]
