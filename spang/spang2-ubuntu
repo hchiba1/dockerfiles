@@ -1,0 +1,17 @@
+FROM ubuntu:20.04
+
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends wget git \
+    && rm -rf /var/lib/apt/lists/*
+RUN wget https://deb.nodesource.com/setup_12.x -O - | bash -
+RUN apt-get update &&  DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends npm \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /opt
+RUN git clone https://github.com/hchiba1/spang
+WORKDIR spang
+RUN npm install && npm link
+
+RUN mkdir /work
+WORKDIR /work
+
+CMD ["spang2"]
