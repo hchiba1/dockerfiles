@@ -1,11 +1,6 @@
 FROM node:16.20.0-alpine3.17
 
-RUN apk --no-cache add git
-
-RUN cd /opt \
- && git clone https://github.com/sparqling/spang \
- && cd /opt/spang \
- && npm install && npm link
+RUN npm install -g spang
 
 WORKDIR /work
 
