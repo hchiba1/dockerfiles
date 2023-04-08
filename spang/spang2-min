@@ -1,0 +1,9 @@
+FROM alpine:3.14
+
+RUN apk --no-cache add npm
+
+RUN npm install -g spang
+
+WORKDIR /work
+
+CMD ["spang2"]
