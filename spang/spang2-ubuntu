@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
 
 RUN apt-get update \
- && DEBIAN_FRONTEND=noninteractive apt-get install -y wget g++ \
+ && DEBIAN_FRONTEND=noninteractive apt-get install -y wget \
  && rm -rf /var/lib/apt/lists/*
 RUN wget https://deb.nodesource.com/setup_14.x -O - | bash -
 RUN apt-get update \
