@@ -1,0 +1,24 @@
+FROM ubuntu:20.04
+
+RUN apt-get update \
+ && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends raptor2-utils libgetopt-complete-perl wget default-jre-headless \
+ && rm -rf /var/lib/apt/lists/*
+
+COPY ./scripts/* /usr/local/bin/
+
+ENV JENA_VERSION 3.17.0
+RUN cd /opt \
+ && wget http://archive.apache.org/dist/jena/binaries/apache-jena-${JENA_VERSION}.tar.gz \
+ && tar zxvf apache-jena-${JENA_VERSION}.tar.gz && rm apache-jena-${JENA_VERSION}.tar.gz
+ENV PATH $PATH:/opt/apache-jena-${JENA_VERSION}/bin
+
+RUN wget https://deb.nodesource.com/setup_14.x -O - | bash -
+RUN apt-get update \
+ && DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs \
+ && rm -rf /var/lib/apt/lists/*
+
+RUN npm install -g spang
+
+WORKDIR /work
+
+CMD ["spang2"]
